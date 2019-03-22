@@ -47,7 +47,7 @@ def artist_song_list(artist_name):
                 song_list.append(track['name'])
                 artist_list.append(results['albums']['items'][i]['name'])
 
-    data = {'Song Name':song_list, 'Artist':artist_list}
+    data = {'Song Name':song_list, 'Album Name':artist_list}
 
     # sorted the song list in alphabetical order
     df = pd.DataFrame(data)
