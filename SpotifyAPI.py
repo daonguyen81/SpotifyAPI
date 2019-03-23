@@ -11,8 +11,9 @@ import collections
 from spotipy.oauth2 import SpotifyClientCredentials 
 import spotipy.util as util
 import pandas as pd 
+import datetime
 import csv
-import json
+
 
 client_id = "721bda361edd4dc49585c5ce19d71083"
 client_secret = "954261c8f8724355915be6401f564b2c"
@@ -24,7 +25,7 @@ This function to retrieve a list of songs from my favarite artist, Lady Gaga, pu
 with key, value of name of song and album name, sort in alphabetical order by song. Finally write 
 results to a CVS file.
 '''
-def artist_song_list(artist_name):
+def getArtistSongList(artist_name):
     print("Retrieving a song list by {}......".format(artist_name))
     client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
     sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager) 
@@ -62,7 +63,7 @@ This function retrive the first 100 songs of 2019 from Spotify including the son
 and out put the csv file by the most pupularity first.
 
 '''
-def year_song_list(year):
+def getYearSongList(year):
     artist_name = []
     track_name = []
     track_id = []
@@ -91,15 +92,67 @@ def year_song_list(year):
     print("Please check {}_song_list.csv file for the data.\n".format(year))
 
 
+'''
+This function get the information from a user single album base on the album id
+'''
+def getUserSinglePlaylistInfo(user, playlist_id):
+    play_list_name = []
+    song_list = []
+    time_added_list = []
+    song_length = []
+
+    client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
+    sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+    playlist = sp.user_playlist(user, playlist_id)
+
+    # get the playlist name
+    play_list_name.append(playlist['name'])
+    print("Retrieving information from {}......".format(play_list_name[0]))
+    # adding the playlist info
+    for item in playlist['tracks']['items']:
+        time_added_list.append(item['added_at'])
+        track = item['track']
+        song_list.append(track['name']) 
+        song_length.append(trackDurationConverter(track['duration_ms']))
+      
+    data = {'Song Name':song_list, 'Time Added':time_added_list, 'Song Length':song_length} 
+    df = pd.DataFrame(data)
+
+    # # Write a single user playlist info to file
+    df.to_csv("{}.csv".format(play_list_name[0]), index=False)
+    print("Please check {}.csv file for the data.\n".format(play_list_name[0]))
+
+'''
+This function convert time from milliseconds to time format
+'''
+def trackDurationConverter(millis):
+    millis = int(millis)
+    seconds = (millis/1000)%60
+    seconds = int(seconds)
+    minutes = (millis/(1000*60))%60
+    minutes = int(minutes)
+    hours = (millis/(1000*60*60))%24
+    hours = int(hours)
+
+    if(hours > 0):
+        time_format = '{:02}:{:02}:{:02}'.format(hours, minutes, seconds)
+    else:
+        time_format = '{}:{:02}'.format(minutes, seconds)
+    return time_format
+
+'''
+Main function
+'''
 def main():
 
     # song list for this year
-    year_song_list("2019")
+    getYearSongList("2019")
 
     # chosen artist
-    artist_song_list("lady gaga")
+    getArtistSongList("lady gaga")
     
- 
+    # get user playlist
+    getUserSinglePlaylistInfo(user_name, '5V1hnvX0xH8Rk16U8hordK') 
 
 if __name__ == '__main__':
 
