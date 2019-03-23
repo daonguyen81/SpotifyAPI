@@ -15,9 +15,9 @@ import datetime
 import csv
 
 
-client_id = "721bda361edd4dc49585c5ce19d71083"
-client_secret = "954261c8f8724355915be6401f564b2c"
-user_name = "dao.nguyen425@yahoo.com"
+client_id = "Enter Client ID Here"
+client_secret = "Enter Client Secret Here"
+user_name = "Enter Your Spotify Username Here"
 
 
 '''
@@ -152,7 +152,7 @@ def main():
     getArtistSongList("lady gaga")
     
     # get user playlist
-    getUserSinglePlaylistInfo(user_name, '5V1hnvX0xH8Rk16U8hordK') 
+    getUserSinglePlaylistInfo(user_name, 'Enter A PlayList ID Here') 
 
 if __name__ == '__main__':
 
