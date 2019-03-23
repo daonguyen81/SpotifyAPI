@@ -11,5 +11,28 @@ Please install the follwoing dependencies:
 ```
 pip install spotify
 pip install pandas
-
 ```
+## Run the Python script.
+This script will scrawl three type of data, manipulate the data and write three separate csv spreadsheets.
+```
+    # song list for this year
+    getYearSongList("2019")
+
+    # chosen artist
+    getArtistSongList("lady gaga")
+    
+    # get user playlist
+    getUserSinglePlaylistInfo(user_name, 'Enter A PlayList ID Here') 
+ ```
+ Logs output to termial while running the script.
+ ```
+  Retrieving a song list for 2019......
+  Please check 2019_song_list.csv file for the data.
+
+  Retrieving a song list by lady gaga......
+  Please check lady_gaga_song_list.csv file for the data.
+
+  Retrieving information from Dao's Playlist......
+  Please check Dao's Playlist.csv file for the data.
+ ```
+ 
