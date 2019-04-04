@@ -15,7 +15,7 @@ pip install pandas
 ## Run the Python script.
 This script will crawl three type of data, manipulates the data and writes the data to three separate csv spreadsheets.
    First function grabs the data of all the songs from the year of 2019, manipulates the data, write to csv file with the most popular      song from the top.
-   Second function grabs the data from my favarite singer, Lady Gaga, clean up for duplicate songs in the list and writes to csv file      with a list in alphabetical order.
+   Second function grabs the data from my favorite singer, Lady Gaga, clean up for duplicate songs in the list and writes to csv file      with a list in alphabetical order.
    Third function grabs the data from my personal account's and a playlist I just created, then writes these data to csv file with          readable time format (mm:ss) for song duration instead of displaying duration in milliseconds.
    
 ```
